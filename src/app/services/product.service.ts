@@ -47,7 +47,7 @@ export class ProductService {
     return this.getProducts(searchUrl);
   }
 
-  getSearchProductPaginate(
+  searchProductsPaginate(
     thepage: number,
     thePageSize: number,
     theKeyword: string,
