@@ -38,6 +38,31 @@ export class CartService {
     this.computeCartTotals();
   }
 
+  /**
+   * Decrements the quantity of a given cart item and updates the cart totals if necessary.
+   *
+   * This function decrements the quantity of the specified cart item. If the quantity becomes 0, the item is removed from the cart.
+   * After updating the quantity or removing the item, the function triggers a recalculation of the cart totals.
+   *
+   * @param {CartItem} cartItem - The cart item for which the quantity should be decremented.
+   * @return {void} This function does not return a value.
+   */
+  decrementQuantity(cartItem: CartItem) {
+    const cartItemIndex = this.cartItems.findIndex(
+      (item) => item.id === cartItem.id,
+    );
+    if (cartItemIndex >= 0) {
+      const currentItem = this.cartItems[cartItemIndex];
+      if (currentItem.quantity > 1) {
+        currentItem.quantity--;
+        this.computeCartTotals();
+      } else {
+        this.cartItems.splice(cartItemIndex, 1);
+        this.computeCartTotals();
+      }
+    }
+  }
+
   computeCartTotals() {
     let totalPriceValue: number = 0;
     let totalQuantityValue: number = 0;
