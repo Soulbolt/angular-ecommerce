@@ -63,6 +63,17 @@ export class CartService {
     }
   }
 
+  remove(cartItem: CartItem) {
+    const cartItemIndex = this.cartItems.findIndex(
+      (item) => item.id === cartItem.id,
+    );
+
+    if (cartItemIndex >= 0) {
+      this.cartItems.splice(cartItemIndex, 1);
+      this.computeCartTotals();
+    }
+  }
+
   computeCartTotals() {
     let totalPriceValue: number = 0;
     let totalQuantityValue: number = 0;
