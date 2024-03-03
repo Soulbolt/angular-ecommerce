@@ -81,17 +81,15 @@ export class CheckoutComponent implements OnInit {
   }
 
   // Method to populate states based on country selected
-  updateStates() {
+  updateStates(formGroupName: string) {
     // Fetch states based on country code
-    const countryCode =
-      this.checkoutFormGroup.value.shippingAddress.country.code;
+    const formGroup = this.checkoutFormGroup.get(formGroupName);
+    const countryCode = formGroup.value.country.code;
 
     this.luv2ShopFormService.getStates(countryCode).subscribe((data) => {
       console.log('Retrieved states: ' + JSON.stringify(data));
       this.states = data;
-      this.checkoutFormGroup.controls['shippingAddress']
-        .get('state')
-        .setValue(data[0]);
+      formGroup.get('state').setValue(data[0]);
     });
   }
 
