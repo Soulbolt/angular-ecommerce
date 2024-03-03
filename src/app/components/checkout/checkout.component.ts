@@ -80,6 +80,21 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
+  // Method to populate states based on country selected
+  updateStates() {
+    // Fetch states based on country code
+    const countryCode =
+      this.checkoutFormGroup.value.shippingAddress.country.code;
+
+    this.luv2ShopFormService.getStates(countryCode).subscribe((data) => {
+      console.log('Retrieved states: ' + JSON.stringify(data));
+      this.states = data;
+      this.checkoutFormGroup.controls['shippingAddress']
+        .get('state')
+        .setValue(data[0]);
+    });
+  }
+
   handleMonthsAndYears() {
     // Read the selected year from the credit card from group and declare the current year along with the selected year
     const creditCardFormGroup = this.checkoutFormGroup.get('creditCard');
