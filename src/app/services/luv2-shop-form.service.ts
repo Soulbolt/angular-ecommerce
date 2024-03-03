@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from "rxjs/operators";
+import { State } from '../common/state';
+import { Country } from '../common/country';
 
 @Injectable({
   providedIn: 'root',
@@ -53,12 +55,11 @@ export class Luv2ShopFormService {
       map((response) => {
         return response._embedded.states;
       })
-    )
+    );
   }
 
   interface GetResponseCountries {
     _embedded: {
-      id: number;
       countries: Country[];
     }
   }
