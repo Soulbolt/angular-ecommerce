@@ -61,6 +61,7 @@ export class CheckoutComponent implements OnInit {
         console.log('Retrieved credit card months: ' + JSON.stringify(data));
         this.creditCardMonths = data;
       });
+
     // Populate credit card years
     this.luv2ShopFormService.getCreditCardYears().subscribe((data) => {
       console.log('Retrieved credit card years: ' + JSON.stringify(data));
