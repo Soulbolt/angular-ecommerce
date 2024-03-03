@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map } from "rxjs/operators";
+import { map } from 'rxjs/operators';
 import { State } from '../common/state';
 import { Country } from '../common/country';
 
@@ -9,9 +9,8 @@ import { Country } from '../common/country';
   providedIn: 'root',
 })
 export class Luv2ShopFormService {
-
-  private countriesUrl = "http://localhost:8080/api/countries";
-  private statesUrl = "http://localhost:8080/api/states";
+  private countriesUrl = 'http://localhost:8080/api/countries';
+  private statesUrl = 'http://localhost:8080/api/states';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -43,9 +42,9 @@ export class Luv2ShopFormService {
   }
 
   getCountries(): Observable<Country[]> {
-    return this.httpClient.get<GetResponseCountries>(this.countriesUrl).pipe(
-      map((response) => response._embedded.countries)
-    );
+    return this.httpClient
+      .get<GetResponseCountries>(this.countriesUrl)
+      .pipe(map((response) => response._embedded.countries));
   }
 
   getStates(theCountryCode: string): Observable<State[]> {
@@ -54,19 +53,19 @@ export class Luv2ShopFormService {
     return this.httpClient.get<GetResponseStates>(searchStatesUrl).pipe(
       map((response) => {
         return response._embedded.states;
-      })
+      }),
     );
   }
+}
 
-  interface GetResponseCountries {
-    _embedded: {
-      countries: Country[];
-    }
-  }
+interface GetResponseCountries {
+  _embedded: {
+    countries: Country[];
+  };
+}
 
-  interface GetResponseStates {
-    _embedded: {
-      states: State[];
-    }
-  }
+interface GetResponseStates {
+  _embedded: {
+    states: State[];
+  };
 }
