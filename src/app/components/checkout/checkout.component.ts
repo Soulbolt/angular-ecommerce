@@ -69,6 +69,32 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
+  handleMonthsAndYears() {
+    // Read the selected year from the credit card from group and declare the current year along with the selected year
+    const creditCardFormGroup = this.checkoutFormGroup.get('creditCard');
+
+    const currentYear: number = new Date().getFullYear();
+    const selectedYear: number = +creditCardFormGroup.value.expirationYear;
+    // If the current year equals the selected year, then start with the current month
+    let startMonth: number;
+
+    if (currentYear === selectedYear) {
+      startMonth = new Date().getMonth() + 1;
+    } else {
+      startMonth = 1;
+    }
+
+    this.luv2ShopFormService
+      .getCreditCardMonths(startMonth)
+      .subscribe((data) => {
+        console.log('Retrieved credit card months: ' + JSON.stringify(data));
+        this.creditCardMonths = data;
+        this.checkoutFormGroup.controls['creditCard']
+          .get('expirationMonth')
+          .setValue(data[0]);
+      });
+  }
+
   copyShippingAddressToBillingAddress(event) {
     if (event.target.checked) {
       this.checkoutFormGroup.controls['billingAddress'].setValue(
