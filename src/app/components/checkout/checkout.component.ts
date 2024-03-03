@@ -19,7 +19,9 @@ export class CheckoutComponent implements OnInit {
   creditCardMonths: number[] = [];
 
   countries: Country[] = [];
-  states: State[] = [];
+
+  shippingAddressStates: State[] = [];
+  billingAddressStates: State[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -88,7 +90,11 @@ export class CheckoutComponent implements OnInit {
 
     this.luv2ShopFormService.getStates(countryCode).subscribe((data) => {
       console.log('Retrieved states: ' + JSON.stringify(data));
-      this.states = data;
+      if (formGroupName === 'shippingAddress') {
+        this.shippingAddressStates = data;
+      } else {
+        this.billingAddressStates = data;
+      }
       formGroup.get('state').setValue(data[0]);
     });
   }
@@ -124,6 +130,7 @@ export class CheckoutComponent implements OnInit {
       this.checkoutFormGroup.controls['billingAddress'].setValue(
         this.checkoutFormGroup.controls['shippingAddress'].value,
       );
+      this.billingAddressStates = this.shippingAddressStates;
     } else {
       this.checkoutFormGroup.controls['billingAddress'].reset();
     }
