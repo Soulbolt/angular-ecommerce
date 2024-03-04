@@ -151,6 +151,23 @@ export class CheckoutComponent implements OnInit {
     return this.checkoutFormGroup.get('shippingAddress.country');
   }
 
+  // Getters for billing address form controls
+  get billingAddressStreet() {
+    return this.checkoutFormGroup.get('billingAddress.street');
+  }
+  get billingAddressCity() {
+    return this.checkoutFormGroup.get('billingAddress.city');
+  }
+  get billingAddressState() {
+    return this.checkoutFormGroup.get('billingAddress.state');
+  }
+  get billingAddressZipCode() {
+    return this.checkoutFormGroup.get('billingAddress.zipCode');
+  }
+  get billingAddressCountry() {
+    return this.checkoutFormGroup.get('billingAddress.country');
+  }
+
   // Method to populate states based on country selected
   updateStates(formGroupName: string) {
     // Fetch states based on country code
