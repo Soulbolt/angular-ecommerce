@@ -143,6 +143,9 @@
                   >
                     Street is required
                   </div>
+                  <div *ngIf="shippingAddressStreet?.errors['minlength']">
+                    Street Code must be at least 2 characters long
+                  </div>
                 </div>
               </div>
             </div>
@@ -166,6 +169,9 @@
                     "
                   >
                     City is required
+                  </div>
+                  <div *ngIf="shippingAddressCity?.errors['minlength']">
+                    City must be at least 2 characters long
                   </div>
                 </div>
               </div>
@@ -216,7 +222,10 @@
                       shippingAddressZipCode?.errors['notOnlyWhiteSpace']
                     "
                   >
-                    Zipcode is required
+                    Zip Code is required
+                  </div>
+                  <div *ngIf="shippingAddressZipCode?.errors['minlength']">
+                    Zip Code must be at least 2 characters long
                   </div>
                 </div>
               </div>
@@ -286,6 +295,9 @@
                   >
                     Street is required
                   </div>
+                  <div *ngIf="billingAddressStreet?.errors['minlength']">
+                    Street must be at least 2 characters long
+                  </div>
                 </div>
               </div>
             </div>
@@ -309,6 +321,9 @@
                     "
                   >
                     City is required
+                  </div>
+                  <div *ngIf="billingAddressCity?.errors['minlength']">
+                    City must be at least 2 characters long
                   </div>
                 </div>
               </div>
@@ -360,6 +375,9 @@
                     "
                   >
                     Zip code is required
+                  </div>
+                  <div *ngIf="billingAddressZipCode?.errors['minlength']">
+                    At least 2 characters are required
                   </div>
                 </div>
               </div>
