@@ -28,10 +28,24 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loginWithRedirect();
+    this.oktaSignIn.remove();
+
+    this.oktaSignIn.renderEl(
+      {
+        el: '#okta-sign-in-widget', // This name should be same as it in div tag in login component
+      },
+      (response: any) => {
+        if (response.status === 'SUCCESS') {
+          this.oktaAuth.signInWithRedirect({});
+        }
+      },
+      (error: any) => {
+        throw error;
+      },
+    );
   }
 
-  loginWithRedirect() {
-    throw new Error('Method not implemented.');
-  }
+  // loginWithRedirect() {
+  //   throw new Error('Method not implemented.');
+  // }
 }
