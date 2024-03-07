@@ -101,6 +101,9 @@ export class CartService {
 
     // Log cart data for debugging purposes
     this.logCartData(totalPriceValue, totalQuantityValue);
+
+    // Persist cart data
+    this.persistCartItems();
   }
 
   persistCartItems() {
