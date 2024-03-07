@@ -8,7 +8,7 @@ import { OrderHistoryService } from '../../services/order-history-service';
   styleUrl: './order-history.component.css',
 })
 export class OrderHistoryComponent implements OnInit {
-  orderHistory: OrderHistory[] = [];
+  orderHistoryList: OrderHistory[] = [];
   storage: Storage = sessionStorage;
 
   constructor(private orderHistoryService: OrderHistoryService) {}
@@ -23,7 +23,7 @@ export class OrderHistoryComponent implements OnInit {
 
     // Retrieve the order history for the user
     this.orderHistoryService.getOrderHistory(theEmail).subscribe((data) => {
-      this.orderHistory = data._embedded.orders;
+      this.orderHistoryList = data._embedded.orders;
     });
   }
 }
