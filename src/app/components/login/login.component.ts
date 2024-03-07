@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       },
       (response: any) => {
         if (response.status === 'SUCCESS') {
-          this.oktaAuth.signInWithRedirect({});
+          this.oktaAuth.signInWithRedirect();
         }
       },
       (error: any) => {
@@ -44,8 +44,4 @@ export class LoginComponent implements OnInit {
       },
     );
   }
-
-  // loginWithRedirect() {
-  //   throw new Error('Method not implemented.');
-  // }
 }
