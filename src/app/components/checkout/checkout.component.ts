@@ -163,7 +163,29 @@ export class CheckoutComponent implements OnInit {
   }
 
   setUpStripePaymentForm() {
-    throw new Error('Method not implemented.');
+    // Get a handle to stripe elements
+    var elements = this.stripe.elements();
+
+    // Create a card element
+    this.cardElement = elements.create('card', {
+      hidePostalCode: true,
+    });
+
+    // Add an instance of card UI component into the 'card-element' div
+    this.cardElement.mount('#card-element');
+
+    // Add event listeners to the card element
+    this.cardElement.addEventListener('change', (event: any) => {
+      // Get a handle to card-errors element
+      this.displayError = document.getElementById('card-errors');
+
+      if (event.complete) {
+        this.displayError.textContent = '';
+      } else if (event.error) {
+        // show validation error message
+        this.displayError.textContent = event.error.message;
+      }
+    });
   }
 
   reviewCartDetails() {
