@@ -385,26 +385,40 @@ export class CheckoutComponent implements OnInit {
       this.checkoutService
         .createPaymentIntent(this.paymentInfo)
         .subscribe((paymentIntentResponse) => {
-          this.stripe.confirmCardPayment(paymentIntentResponse.client_secret, {
-            payment_method: {
-              card: this.cardElement,
-            },
-          });
+          this.stripe
+            .confirmCardPayment(
+              paymentIntentResponse.client_secret,
+              {
+                payment_method: {
+                  card: this.cardElement,
+                },
+              },
+              { handleACtions: false },
+            )
+            .then((result) => {
+              if (result.error) {
+                // Inform the customer there was an error
+                alert(`There was an error: ${result.error.message}`);
+              } else {
+                // Call REST API via the CheckoutService
+                this.checkoutService.placeOrder(purchase).subscribe({
+                  next: (response) => {
+                    alert(
+                      `Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`,
+                    );
+                    this.resetCart();
+                  },
+                  error: (err) => {
+                    alert(`There was an error: ${err.message}`);
+                  },
+                });
+              }
+            });
         });
+    } else {
+      this.checkoutFormGroup.markAllAsTouched();
+      return;
     }
-
-    // Call REST API via the CheckoutService
-    this.checkoutService.placeOrder(purchase).subscribe({
-      next: (response) => {
-        alert(
-          `Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`,
-        );
-        this.resetCart();
-      },
-      error: (err) => {
-        alert(`There was an error: ${err.message}`);
-      },
-    });
   }
 
   resetCart() {
