@@ -374,6 +374,7 @@ export class CheckoutComponent implements OnInit {
     // Compute payment info
     this.paymentInfo.amount = Math.round(this.totalPrice * 100);
     this.paymentInfo.currency = 'USD';
+    this.paymentInfo.receiptEmail = purchase.customer.email;
 
     // If valid form then
     // - create payment intent
